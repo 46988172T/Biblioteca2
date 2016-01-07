@@ -3,31 +3,48 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="clases.Llibres" table="LLIBRES">
+    <class name="clases.Llibres" table="llibres">
         <meta attribute="class-information">
             Aquest és el fitxer que fa el mapping de la classe Llibres a la taula Llibres
         </meta>
-        <id name="id_llibres" type="int" column="id_llibres">
-            <generator class="native"/>
+        <id name="id_llibres" type="integer" column="id_llibre">
+        <generator class="increment"/>
         </id>
+
         <property name="titol" column="titol" type="string"/>
+        <property name="autor" column="autor" type="string"/>
         <property name="num_exemplars" column="num_exemplars" type="int"/>
         <property name="editorial" column="editorial" type="string"/>
         <property name="num_pagines" column="num_pagines" type="int"/>
         <property name="any_edicio" column="any_edicio" type="int"/>
     </class>
-    <class name="clases.Socis" table="SOCIS">
+    <class name="clases.Socis" table="socis">
         <meta attribute="class-information">
             Aquest és el fitxer que fa el mapping de la classe Socis a la taula Llibres
         </meta>
-        <id name="id_soci" type="int" column="id_soci">
-            <generator class="native"/>
+        <id name="id_soci" type="integer" column="id_soci">
+            <generator class="increment"/>
         </id>
         <property name="nom" column="nom" type="string"/>
         <property name="cognoms" column="cognoms" type="string"/>
         <property name="edat" column="edat" type="int"/>
         <property name="adress" column="adress" type="string"/>
         <property name="telefon" column="telefon" type="int"/>
+    </class>
+
+    <class name="clases.Prestec" table="prestec">
+        <meta attribute="class-information">
+            Aquest és el fitxer que fa el mapping de la classe Socis a la taula Llibres
+        </meta>
+        <composite-id>
+            <key-property name="id_llibres" column="id_llibre" />
+            <key-property name="id_soci" column="id_soci" />
+        </composite-id>
+
+        <property name="titol" column="titol" type="string"/>
+        <property name="data_inici" column="data_inici" type="java.util.Date"/>
+        <property name="data_final" column="data_final" type="java.util.Date"/>
+
     </class>
 
 </hibernate-mapping>

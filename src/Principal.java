@@ -1,7 +1,12 @@
 
+import database.CreateDB;
+import database.DAO;
 import funcionalitats.FuncLlibres;
+import funcionalitats.FuncPrestec;
 import funcionalitats.FuncSocis;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 /**
@@ -28,17 +33,17 @@ import java.util.Scanner;
  */
 public class Principal {
     static Scanner entrada = new Scanner(System.in);
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
         CreateDB.createTableLlibres();
         CreateDB.createTableSocis();
         CreateDB.createTablePrestec();
         menuPrincipal();
     }
 
-    public static void menuPrincipal(){
+    public static void menuPrincipal() throws SQLException, ClassNotFoundException, ParseException {
         int menu;
         do {
-            System.out.println("Menu\n1. Donar d'alta, de baixa i modificar llibres\n2. Donar d'alta, de baixa i modificar socis."
+            System.out.println("\n-----------------------\n--------Menu-----------\n-----------------------\n1. Donar d'alta, de baixa i modificar llibres\n2. Donar d'alta, de baixa i modificar socis."
                     + "\n3. Consultes llibres i socis \n4. Alta prèstec \n5. Llistats");
             menu = entrada.nextInt();
 
@@ -51,19 +56,22 @@ public class Principal {
                     menuSocis();
                     break;
                 case 3:
-
+                    menuConsultes();
                     break;
                 case 4:
-
+                    FuncPrestec.altaPrestec();
+                    break;
+                case 5:
+                    menuLlistats();
                     break;
             }
 
         }while(menu != 0);
 
-        entrada.close();
+
     }
 
-    public static void menuLlibres(){
+    public static void menuLlibres() throws SQLException, ClassNotFoundException {
         int menu;
         do {
             System.out.println("Llibres\n1. Donar d'alta llibres\n2. Donar de baixa llibres."
@@ -85,10 +93,10 @@ public class Principal {
 
         }while(menu != 0);
 
-        entrada.close();
+
     }
 
-    public static void menuSocis(){
+    public static void menuSocis() throws SQLException, ClassNotFoundException {
         int menu;
         do {
             System.out.println("Socis\n1. Donar d'alta socis\n2. Donar de baixa socis"
@@ -110,7 +118,54 @@ public class Principal {
 
         }while(menu != 0);
 
-        entrada.close();
+
+    }
+
+    public static void menuConsultes() throws SQLException, ClassNotFoundException {
+        int menu;
+        do {
+            System.out.println("Socis\n1. Consulta soci per nom\n2. Consulta soci per cognoms"
+                    + "\n3. Consulta llibre per titol\n3. Consulta llibre per autor");
+            menu = entrada.nextInt();
+
+            switch (menu) {
+
+                case 1:
+                    FuncSocis.consultaSociPerNom();
+                    break;
+                case 2:
+                    FuncSocis.consultaSociPerCognoms();
+                    break;
+                case 3:
+                    FuncLlibres.consultaLlibrePerTitol();
+                    break;
+                case 4:
+                    FuncLlibres.consultaLlibrePerAutor();
+                    break;
+            }
+
+        }while(menu != 0);
+
+
+    }
+
+    public static void menuLlistats() throws SQLException, ClassNotFoundException {
+        int menu;
+        do {
+            System.out.println("Llistats\n1. Tots els prestecs\n2. Prestecs a un soci determinat");
+            menu = entrada.nextInt();
+
+            switch (menu) {
+
+                case 1:
+                    DAO.llistaPrestecs();
+                    break;
+                case 2:
+                    FuncSocis.llistatPerId();
+                    break;
+            }
+
+        }while(menu != 0);
     }
 
 

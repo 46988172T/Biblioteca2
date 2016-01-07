@@ -1,3 +1,5 @@
+package database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -12,7 +14,7 @@ import java.sql.Statement;
  */
 public class CreateDB {
     private static String DRIVERDD = "org.postgresql.Driver";
-    private static String nombreDb = "jdbc:postgresql://192.168.1.39:5432/biblioteca";
+    private static String nombreDb = "jdbc:postgresql://192.168.1.39:5432/library";
 
     public static void createDB (String nom) {
         Connection c = null;
@@ -43,6 +45,7 @@ public class CreateDB {
             String sql = "CREATE TABLE LLIBRES " +
                     "(ID_LLIBRE INT PRIMARY KEY     NOT NULL," +
                     " TITOL           TEXT    NOT NULL," +
+                    " AUTOR           TEXT    NOT NULL," +
                     " NUM_EXEMPLARS   INT     NOT NULL," +
                     " EDITORIAL       TEXT    NOT NULL," +
                     " NUM_PAGINES     INT     NOT NULL," +

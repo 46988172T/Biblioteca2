@@ -1,24 +1,40 @@
 package clases;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by leosss on 4/01/16.
  * Préstec (llibre, soci, data inici, data final)
  */
-public class Prestec {
-    private Date data_inici;
-    private Date data_final;
+@Entity
+public class Prestec implements Serializable{
+    @Id
     private int id_llibres;
-    private String titol;
-    private int soci;
+    @Id
+    private int id_soci;
 
-    public Prestec(int id_llibres, String titol, int soci, Date data_inici, Date data_final) {
-        this.id_llibres = id_llibres;
+    @Column(name="data_inici")
+    private Date data_inici;
+    @Column(name="data_final")
+    private Date data_final;
+    @Column(name="titol")
+    private String titol;
+
+
+
+    public Prestec( int id_llibres, int id_soci, String titol, Date data_inici, Date data_final) {
+        this.id_llibres=id_llibres;
+        this.id_soci=id_soci;
         this.titol = titol;
-        this.soci = soci;
         this.data_inici = data_inici;
         this.data_final = data_final;
+    }
+
+    public Prestec() {
     }
 
     /*
@@ -41,12 +57,12 @@ public class Prestec {
         this.titol = titol;
     }
 
-    public int getSoci() {
-        return soci;
+    public int getId_soci() {
+        return id_soci;
     }
 
-    public void setSoci(int soci) {
-        this.soci = soci;
+    public void setId_soci(int id_soci) {
+        this.id_soci = id_soci;
     }
 
     public Date getData_final() {
